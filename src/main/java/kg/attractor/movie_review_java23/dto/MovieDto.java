@@ -1,7 +1,6 @@
 package kg.attractor.movie_review_java23.dto;
 
 import kg.attractor.movie_review_java23.model.Cast;
-import kg.attractor.movie_review_java23.model.Director;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +17,7 @@ public class MovieDto {
     private String name;
     private Integer year;
     private String description;
-    private Director director;
+    private DirectorDto director;
     private List<Cast> cast;
 
 }

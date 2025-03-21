@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - includeAll:
+      path: db/changelog/initial
+#  - include:
+#      file: db/changelog/initial/003_create_table.yml

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import kg.attractor.movie_review_java23.model.Movie;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -28,15 +29,12 @@ import java.util.Map;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class FileUtil {
 
-    private final Gson gson;
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     private static final String UPLOAD_DIR = "data/";
-
-    public FileUtil() {
-        gson = new GsonBuilder().setPrettyPrinting().create();
-    }
 
     public List<Movie> getMovies(String path) {
         Type listType = new TypeToken<Map<String, List<Movie>>>() {
@@ -87,4 +85,5 @@ public class FileUtil {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Image not found");
         }
     }
+
 }

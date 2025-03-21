@@ -1,10 +1,12 @@
 package kg.attractor.movie_review_java23.service;
 
+import kg.attractor.movie_review_java23.dto.MovieImageDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 public interface ImageService {
-    String saveImage(MultipartFile file);
+    String saveImage(MovieImageDto movieImageDto);
 
     ResponseEntity<?> findByName(String imageName);
+
+    ResponseEntity<?> findById(long imageId);
 }
