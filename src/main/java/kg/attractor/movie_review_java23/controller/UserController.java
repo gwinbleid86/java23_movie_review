@@ -1,5 +1,6 @@
 package kg.attractor.movie_review_java23.controller;
 
+import jakarta.validation.Valid;
 import kg.attractor.movie_review_java23.dto.UserDto;
 import kg.attractor.movie_review_java23.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -31,13 +32,18 @@ public class UserController {
     }
 
     @PostMapping
-    public HttpStatus createUser(@RequestBody UserDto userDto) {
+    public HttpStatus createUser(@RequestBody @Valid UserDto userDto) {
         userService.addUser(userDto);
         return HttpStatus.OK;
     }
 
     @PostMapping("withId")
-    public int createAndReturnId(@RequestBody UserDto userDto) {
+    public int createAndReturnId(@RequestBody @Valid UserDto userDto) {
         return userService.createUserAndReturnId(userDto);
     }
+
+//    @ExceptionHandler(NoSuchElementException.class)
+//    private ErrorResponse handleNoSuchElementException(NoSuchElementException e) {
+//        return ErrorResponse.builder(e, HttpStatus.NO_CONTENT, e.getMessage()).build();
+//    }
 }
