@@ -31,4 +31,13 @@ public class MovieImageDao {
         String sql = "insert into movie_images (movie_id, file_name) values (?, ?)";
         jdbcTemplate.update(sql, movieId, filename);
     }
+
+    public Optional<MovieImage> findByMovieId(long movieId) {
+        String sql = "select * from movie_images where movie_id = ?";
+        return Optional.ofNullable(
+                DataAccessUtils.singleResult(
+                        jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(MovieImage.class), movieId)
+                )
+        );
+    }
 }

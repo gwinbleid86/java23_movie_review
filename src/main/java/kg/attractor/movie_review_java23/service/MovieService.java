@@ -10,4 +10,6 @@ public interface MovieService {
     MovieDto getMovieById(String movieId);
 
     void createMovie(MovieDto movieDto);
+
+    List<MovieDto> getMovieListPaging(int size, int page);
 }

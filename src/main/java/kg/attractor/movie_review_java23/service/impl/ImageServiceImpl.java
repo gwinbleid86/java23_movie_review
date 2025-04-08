@@ -42,4 +42,12 @@ public class ImageServiceImpl implements ImageService {
         return fileUtil.getOutputFile(filename, "images/", MediaType.IMAGE_JPEG);
     }
 
+    @Override
+    public ResponseEntity<?> findByMovieId(long movieId) {
+        MovieImage image = movieImageDao.findByMovieId(movieId)
+                .orElseThrow(ImageNotFoundException::new);
+        String filename = image.getFileName();
+        return fileUtil.getOutputFile(filename, "images/", MediaType.IMAGE_JPEG);
+    }
+
 }

@@ -7,11 +7,15 @@ import kg.attractor.movie_review_java23.model.Movie;
 import kg.attractor.movie_review_java23.service.DirectorService;
 import kg.attractor.movie_review_java23.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MovieServiceImpl implements MovieService {
@@ -20,6 +24,10 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<MovieDto> getAllMovies() {
+        SecurityContext sc = SecurityContextHolder.getContext();
+        var principal = sc.getAuthentication().getName();
+        log.info("principal: {}", principal);
+
         List<Movie> movies = movieDao.getMovies();
         return movies.stream()
                 .map(e -> MovieDto.builder()
@@ -56,5 +64,33 @@ public class MovieServiceImpl implements MovieService {
 //                .cast(new ArrayList<>())
                 .directorId(1)
                 .build());
+    }
+
+    @Override
+    public List<MovieDto> getMovieListPaging(int page, int size) {
+        int offset = page * size;
+        int total = movieDao.countMovies();
+
+        int lastPage = total % size;
+
+        if (page <= 0) {
+            offset = 0;
+        }
+        if (page > lastPage) {
+            offset = total - lastPage;
+        }
+        if (lastPage == 0) {
+            offset = total - size;
+        }
+
+        List<Movie> movies = movieDao.getMoviesWithPagination(size, offset);
+        return movies.stream()
+                .map(e -> MovieDto.builder()
+                        .id(e.getId())
+                        .name(e.getName())
+                        .year(e.getReleaseYear())
+                        .description(e.getDescription())
+                        .build())
+                .toList();
     }
 }

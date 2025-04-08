@@ -1,4 +1,4 @@
-package kg.attractor.movie_review_java23.controller;
+package kg.attractor.movie_review_java23.controller.api;
 
 import jakarta.validation.Valid;
 import kg.attractor.movie_review_java23.dto.UserDto;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("api/users")
 @RequiredArgsConstructor
 public class UserController {
 

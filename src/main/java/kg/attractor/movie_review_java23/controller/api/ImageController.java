@@ -1,4 +1,4 @@
-package kg.attractor.movie_review_java23.controller;
+package kg.attractor.movie_review_java23.controller.api;
 
 import kg.attractor.movie_review_java23.dto.MovieImageDto;
 import kg.attractor.movie_review_java23.service.ImageService;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("images")
+@RequestMapping("api/images")
 @RequiredArgsConstructor
 public class ImageController {
     private final ImageService imageService;
@@ -25,6 +25,11 @@ public class ImageController {
     @GetMapping("{imageName}")
     public ResponseEntity<?> getImageByName(@PathVariable String imageName) {
         return imageService.findByName(imageName);
+    }
+
+    @GetMapping("movies/{movieId}")
+    public ResponseEntity<?> getImageByMovieId(@PathVariable int movieId) {
+        return imageService.findByMovieId(movieId);
     }
 
     @PostMapping

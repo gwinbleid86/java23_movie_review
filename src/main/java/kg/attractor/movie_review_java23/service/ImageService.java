@@ -9,4 +9,6 @@ public interface ImageService {
     ResponseEntity<?> findByName(String imageName);
 
     ResponseEntity<?> findById(long imageId);
+
+    ResponseEntity<?> findByMovieId(long movieId);
 }
