@@ -12,6 +12,7 @@
                     <th scope="col">Poster</th>
                     <th scope="col">Release year</th>
                     <th scope="col">Director</th>
+                    <th style="min-width: 5rem"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -23,6 +24,9 @@
                         </td>
                         <td>${movie.year}</td>
                         <td>${movie.director!"-"}</td>
+                        <td>
+                            <a href="/movies/${movie.id}" class="nav-link">More info</a>
+                        </td>
                     </tr>
                 </#list>
                 </tbody>

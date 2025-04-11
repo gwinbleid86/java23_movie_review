@@ -26,6 +26,14 @@
         }
     </style>
 
+    <#assign known = SPRING_SECURITY_CONTEXT?? >
+    <#if known>
+        <#assign
+        user = SPRING_SECURITY_CONTEXT.authentication.principal
+        name = user.getUsername()
+        >
+    </#if>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Navbar</a>
@@ -60,10 +68,25 @@
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+
+                <#if user??>
+                <#--                    <a href="/profile/${name}" class="text-light m-2 m-sm-0">-->
+                    Hello, ${name}:
+                    <#list user.authorities as auth>
+                        <span class="text-danger">${auth}</span>
+                        <#if auth?has_next>
+                            /
+                        </#if>
+                    </#list>
+                <#--                    </a>-->
+                    <a href="/logout" class="btn btn-outline-info m-2"
+                       id="logout">Logout</a>
+                <#else>
+                    <a href="/auth/login"
+                       class="btn btn-outline-info m-2">Login</a>
+                    <a href="/auth/register"
+                       class="btn btn-outline-info m-2">Register</a>
+                </#if>
             </div>
         </div>
     </nav>
