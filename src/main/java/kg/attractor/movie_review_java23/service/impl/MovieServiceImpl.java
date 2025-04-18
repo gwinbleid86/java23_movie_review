@@ -4,12 +4,11 @@ import kg.attractor.movie_review_java23.dao.MovieDao;
 import kg.attractor.movie_review_java23.dto.MovieDto;
 import kg.attractor.movie_review_java23.exceptions.MovieNotFoundException;
 import kg.attractor.movie_review_java23.model.Movie;
+import kg.attractor.movie_review_java23.repository.MovieRepository;
 import kg.attractor.movie_review_java23.service.DirectorService;
 import kg.attractor.movie_review_java23.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,15 +19,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MovieServiceImpl implements MovieService {
     private final MovieDao movieDao;
+    private final MovieRepository movieRepository;
     private final DirectorService directorService;
 
     @Override
     public List<MovieDto> getAllMovies() {
-        SecurityContext sc = SecurityContextHolder.getContext();
-        var principal = sc.getAuthentication().getName();
-        log.info("principal: {}", principal);
-
-        List<Movie> movies = movieDao.getMovies();
+        List<Movie> movies = movieRepository.findAll();
         return movies.stream()
                 .map(e -> MovieDto.builder()
                         .id(e.getId())
@@ -49,7 +45,7 @@ public class MovieServiceImpl implements MovieService {
                 .name(movie.getName())
                 .year(movie.getReleaseYear())
                 .description(movie.getDescription())
-                .director(directorService.getDirectorById(movie.getDirectorId()))
+                .director(directorService.getDirectorById(movie.getDirector().getId()))
                 .build();
     }
 
@@ -57,12 +53,12 @@ public class MovieServiceImpl implements MovieService {
     public void createMovie(MovieDto movieDto) {
         List<Movie> movies = movieDao.getMovies();
         movies.add(Movie.builder()
-                .id(movies.size() + 1)
+                .id((long) (movies.size() + 1))
                 .name(movieDto.getName())
                 .releaseYear(LocalDate.now().getYear())
                 .description(movieDto.getDescription())
 //                .cast(new ArrayList<>())
-                .directorId(1)
+//                .directorId(1)
                 .build());
     }
 

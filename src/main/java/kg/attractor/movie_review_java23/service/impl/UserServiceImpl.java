@@ -1,9 +1,9 @@
 package kg.attractor.movie_review_java23.service.impl;
 
-import kg.attractor.movie_review_java23.dao.UserDao;
 import kg.attractor.movie_review_java23.dto.UserDto;
 import kg.attractor.movie_review_java23.exceptions.UserNotFoundException;
 import kg.attractor.movie_review_java23.model.User;
+import kg.attractor.movie_review_java23.repository.UserRepository;
 import kg.attractor.movie_review_java23.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,27 +13,27 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     @Override
     public List<UserDto> getUsers() {
-        List<User> list = userDao.getUsers();
+        List<User> list = userRepository.findAll();
         return list.stream()
                 .map(e -> UserDto.builder()
-                        .id(e.getId())
-                        .name(e.getUserName())
+                        .email(e.getEmail())
+                        .username(e.getUsername())
                         .password(e.getPassword())
                         .build())
                 .toList();
     }
 
     @Override
-    public UserDto getUserById(int id) {
-        User user = userDao.getUserById(id)
+    public UserDto getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(UserNotFoundException::new);
         return UserDto.builder()
-                .id(user.getId())
-                .name(user.getUserName())
+                .email(user.getEmail())
+                .username(user.getUsername())
                 .password(user.getPassword())
                 .build();
     }
@@ -41,19 +41,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(UserDto userDto) {
         User user = new User();
-        user.setUserName(userDto.getName());
+        user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
 
-        userDao.create(user);
+        userRepository.save(user);
     }
 
     @Override
-    public int createUserAndReturnId(UserDto userDto) {
+    public UserDto createUserAndReturn(UserDto userDto) {
         User user = new User();
-        user.setId(userDto.getId());
-        user.setUserName(userDto.getName());
+        user.setEmail(userDto.getEmail());
+        user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
 
-        return userDao.createAndReturnId(user);
+        User usr = userRepository.save(user);
+        return UserDto.builder()
+                .email(usr.getEmail())
+                .username(usr.getUsername())
+                .password(usr.getPassword())
+                .build();
     }
 }

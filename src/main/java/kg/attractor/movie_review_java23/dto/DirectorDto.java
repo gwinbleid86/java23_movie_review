@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class DirectorDto {
-    private int id;
+    private Long id;
     private String fullName;
 }

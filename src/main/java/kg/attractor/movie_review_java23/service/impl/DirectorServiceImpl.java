@@ -15,7 +15,7 @@ public class DirectorServiceImpl implements DirectorService {
     private final DirectorDao directorDao;
 
     @Override
-    public DirectorDto getDirectorById(int id) {
+    public DirectorDto getDirectorById(Long id) {
         Director director = directorDao.findDirectorById(id)
                 .orElseThrow(DirectorNotFoundException::new);
         return DirectorDto.builder()

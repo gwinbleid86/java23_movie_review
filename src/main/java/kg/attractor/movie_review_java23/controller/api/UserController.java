@@ -26,9 +26,9 @@ public class UserController {
         return userService.getUsers();
     }
 
-    @GetMapping("{id}")
-    public UserDto getUserById(@PathVariable int id) {
-        return userService.getUserById(id);
+    @GetMapping("{email}")
+    public UserDto getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
     }
 
     @PostMapping
@@ -38,8 +38,8 @@ public class UserController {
     }
 
     @PostMapping("withId")
-    public int createAndReturnId(@RequestBody @Valid UserDto userDto) {
-        return userService.createUserAndReturnId(userDto);
+    public UserDto createAndReturn(@RequestBody @Valid UserDto userDto) {
+        return userService.createUserAndReturn(userDto);
     }
 
 //    @ExceptionHandler(NoSuchElementException.class)

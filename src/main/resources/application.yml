@@ -5,6 +5,7 @@ spring:
     name: "Movie Review"
   mvc:
     static-path-pattern: /static/**
+    log-request-details: false
   freemarker:
     expose-session-attributes: true
 
@@ -16,11 +17,26 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/master.yml
 
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        generate_statistics: false
+        format_sql: true
+    show-sql: false
+
+
 logging:
   level:
     root: info
     org:
+      hibernate:
+        type: error
+        stat: error
       springframework:
-        security: debug
+        security: error
+    web: info
+    sql: error
   file:
     path: logs

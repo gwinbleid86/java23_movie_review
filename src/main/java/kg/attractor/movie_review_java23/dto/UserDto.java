@@ -14,9 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-    private Integer id;
-
-    private String name;
+    private String username;
 
     @NotBlank
     @Email

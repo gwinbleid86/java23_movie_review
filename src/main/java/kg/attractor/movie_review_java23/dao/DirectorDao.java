@@ -15,7 +15,7 @@ public class DirectorDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public Optional<Director> findDirectorById(int id) {
+    public Optional<Director> findDirectorById(Long id) {
         String sql = "select * from director where id = ?";
         return Optional.ofNullable(
                 DataAccessUtils.singleResult(
