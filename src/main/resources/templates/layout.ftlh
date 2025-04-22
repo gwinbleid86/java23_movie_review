@@ -68,26 +68,35 @@
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
-
-                <#if user??>
-                <#--                    <a href="/profile/${name}" class="text-light m-2 m-sm-0">-->
+            </div>
+            <#if user??>
+                <a href="/profile/${name}" class="text-light m-2 m-sm-0">
                     Hello, ${name}:
-                    <#list user.authorities as auth>
-                        <span class="text-danger">${auth}</span>
-                        <#if auth?has_next>
-                            /
-                        </#if>
-                    </#list>
-                <#--                    </a>-->
+                    <#--                <#list user.authorities as auth>-->
+                    <#--                    <span class="text-danger">${auth}</span>-->
+                    <#--                    <#if auth?has_next>-->
+                    <#--                        /-->
+                    <#--                    </#if>-->
+                    <#--                </#list>-->
+                </a>
+                <#if _csrf??>
+                    <form action="/logout" method="post">
+                        <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
+                               value="${(_csrf.token)!'--no-token--'}"/>
+                        <button type="submit" class="btn btn-outline-info m-2"
+                                id="logout">Logout
+                        </button>
+                    </form>
+                <#else>
                     <a href="/logout" class="btn btn-outline-info m-2"
                        id="logout">Logout</a>
-                <#else>
-                    <a href="/auth/login"
-                       class="btn btn-outline-info m-2">Login</a>
-                    <a href="/auth/register"
-                       class="btn btn-outline-info m-2">Register</a>
                 </#if>
-            </div>
+            <#else>
+                <a href="/auth/login"
+                   class="btn btn-outline-info m-2">Login</a>
+                <a href="/auth/register"
+                   class="btn btn-outline-info m-2">Register</a>
+            </#if>
         </div>
     </nav>
 

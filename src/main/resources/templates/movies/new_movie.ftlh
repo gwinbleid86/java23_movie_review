@@ -1,6 +1,10 @@
 <#import "../layout.ftlh" as main>
 <@main.layout>
     <form action="/movies/create" method="post">
+        <#if _csrf??>
+            <input type="hidden" name="${(_csrf.parameterName)!'csrf-param-name'}"
+                   value="${(_csrf.token)!'csrf-token'}"/>
+        </#if>
         <input type="text" name="name" class="form-control" placeholder="Title">
         <input type="number" name="releaseYear" class="form-control" placeholder="Release year">
         <div class="mb-3">
