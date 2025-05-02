@@ -26,6 +26,35 @@ spring:
         format_sql: true
     show-sql: false
 
+  #====================== Mail Config
+  mail:
+    host: smtp.gmail.com
+    username: gwinbleid86@gmail.com
+    password: "lfxd cbqc tyhf nehe"
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  #====================== Mail Config
+
+
+
+  #====================== OAuth2.0 Config
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id:
+            client-secret:
+            scope:
+              - email
+              - profile
+#====================== OAuth2.0 Config
+
 
 logging:
   level:

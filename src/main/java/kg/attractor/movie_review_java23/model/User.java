@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -21,8 +21,15 @@ public class User {
     private String username;
     private String password;
     private Boolean enabled;
+    private String resetPasswordToken;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users", cascade = CascadeType.ALL)
-    private List<Role> roles;
+    private Collection<Role> roles;
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+        role.getUsers().add(this);
+    }
+
 
 }
