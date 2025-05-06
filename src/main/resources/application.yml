@@ -43,16 +43,16 @@ spring:
 
 
   #====================== OAuth2.0 Config
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id:
-            client-secret:
-            scope:
-              - email
-              - profile
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id:
+#            client-secret:
+#            scope:
+#              - email
+#              - profile
 #====================== OAuth2.0 Config
 
 

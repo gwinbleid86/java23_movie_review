@@ -1,6 +1,5 @@
 package kg.attractor.movie_review_java23.config;
 
-import kg.attractor.movie_review_java23.model.CustomOAuth2User;
 import kg.attractor.movie_review_java23.service.impl.AuthUserDetailsService;
 import kg.attractor.movie_review_java23.service.impl.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
@@ -40,15 +39,16 @@ public class SecurityConfig {
                         .requestMatchers("/reviews/**").fullyAuthenticated()
 //                        .requestMatchers("/movies/**").hasAuthority("ADMIN")
                         .anyRequest().permitAll())
-                .oauth2Login(oauth -> oauth
-                        .loginPage("/auth/login")
-                        .userInfoEndpoint(userConfig -> userConfig
-                                .userService(customOAuth2UserService))
-                        .successHandler((request, response, authentication) -> {
-                            var oauthUser = (CustomOAuth2User) authentication.getPrincipal();
-                            userDetailsService.processOAuthPostLogin(oauthUser.getAttribute("email"));
-                            response.sendRedirect("/");
-                        }));
+//                .oauth2Login(oauth -> oauth
+//                        .loginPage("/auth/login")
+//                        .userInfoEndpoint(userConfig -> userConfig
+//                                .userService(customOAuth2UserService))
+//                        .successHandler((request, response, authentication) -> {
+//                            var oauthUser = (CustomOAuth2User) authentication.getPrincipal();
+//                            userDetailsService.processOAuthPostLogin(oauthUser.getAttribute("email"));
+//                            response.sendRedirect("/");
+//                        }))
+        ;
 
         return http.build();
     }

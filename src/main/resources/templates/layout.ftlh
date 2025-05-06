@@ -36,7 +36,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Navbar</a>
+            <a class="navbar-brand" href="/">Movie Review</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -45,33 +45,34 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/"><@spring.message "layout.nav.home"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/movies">Movies</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
+                        <a class="nav-link" href="/movies"><@spring.message "layout.nav.movies"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <@spring.message "layout.nav.lang.exchange"/>
+                            </button>
+                            <ul class="dropdown-menu z-3" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="?lang=en"><@spring.message "layout.nav.lang_en"/></a>
+                                </li>
+                                <li><a class="dropdown-item" href="?lang=ru"><@spring.message "layout.nav.lang_ru"/></a>
+                                </li>
+                                <li><a class="dropdown-item" href="?lang=ky"><@spring.message "layout.nav.lang_ky"/></a>
+                                </li>
+                            </ul>
+                        </div>
+
                     </li>
+                    <#--                    <li class="nav-item"></li>-->
                 </ul>
             </div>
             <#if user??>
                 <a href="/profile/${name}" class="text-light m-2 m-sm-0">
-                    Hello, ${name}:
+                    <@spring.message "layout.nav.hello"/>, ${name}:
                     <#--                <#list user.authorities as auth>-->
                     <#--                    <span class="text-danger">${auth}</span>-->
                     <#--                    <#if auth?has_next>-->
@@ -84,18 +85,19 @@
                         <input type="hidden" name="${(_csrf.parameterName)!'csrf'}"
                                value="${(_csrf.token)!'--no-token--'}"/>
                         <button type="submit" class="btn btn-outline-info m-2"
-                                id="logout">Logout
+                                id="logout">
+                            <@spring.message "layout.nav.logout"/>
                         </button>
                     </form>
                 <#else>
                     <a href="/logout" class="btn btn-outline-info m-2"
-                       id="logout">Logout</a>
+                       id="logout"><@spring.message "layout.nav.logout"/></a>
                 </#if>
             <#else>
                 <a href="/auth/login"
-                   class="btn btn-outline-info m-2">Login</a>
+                   class="btn btn-outline-info m-2"><@spring.message "layout.nav.login"/></a>
                 <a href="/auth/register"
-                   class="btn btn-outline-info m-2">Register</a>
+                   class="btn btn-outline-info m-2"><@spring.message "layout.nav.register"/></a>
             </#if>
         </div>
     </nav>
