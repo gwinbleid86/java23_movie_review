@@ -34,3 +34,7 @@ build/
 /data/
 /db/
 /logs/
+/config/
+/docker/dev/data/
+/docker/dev/db/
+/docker/dev/logs/

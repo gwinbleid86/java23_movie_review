@@ -1,0 +1,12 @@
+services:
+
+  app:
+    image: movie_review_java_23_image:lesson_78
+    container_name: movie_review_j23
+    restart: always
+    ports:
+      - "9090:8089"
+    volumes:
+      - ./db:/app/db
+      - ./logs:/app/logs
+      - ./data:/app/data
