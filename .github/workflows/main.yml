@@ -66,14 +66,13 @@ jobs:
 
     steps:
       - name: Connect to server and pull docker image
-        uses: webfactory/ssh-agent@v0.9.0
+        uses: tiyee/action-ssh@release
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          command_timeout: 30m
-          script: |
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          command: |
             cd ${{ secrets.WORK_DIR }}
             docker compose pull
             docker compose up -d
