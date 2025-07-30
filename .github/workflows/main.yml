@@ -66,7 +66,7 @@ jobs:
 
     steps:
       - name: Connect to server and pull docker image
-        uses: tiyee/action-ssh@v1
+        uses: tiyee/action-ssh@v1.0.1
         with:
           host: ${{ secrets.SSH_HOST }}
           port: 22
